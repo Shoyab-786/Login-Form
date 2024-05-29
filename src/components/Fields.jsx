@@ -1,17 +1,19 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { IoPerson } from "react-icons/io5";
 import { Link, useNavigate } from 'react-router-dom';
 import { RiMapPinUserFill } from "react-icons/ri";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import toast from 'react-hot-toast';
 
 const Fields = ({ activeBtn, heading }) => {
-    const [robot, setRobot] = useState(false)
-    const [name, setName] = useState('');
-    const [userName, setUserName] = useState('')
-    const [email, setEmail] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [robot, setRobot] = useState(false);
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
 
     const handleName = (e) => {
         setName(e.target.value);
@@ -88,7 +90,13 @@ const Fields = ({ activeBtn, heading }) => {
                     </div>
                     <div className="flex items-center gap-5 bg-gray-200 p-3 w-full rounded-md">
                         <FaLock size={25} />
-                        <input type="password" onChange={handlePassword} placeholder='Password*' className='outline-none w-full p-2  bg-gray-200' />
+                        <input type={`${showPassword ? 'text' : 'password'}`} onChange={handlePassword} placeholder='Password*' className='outline-none w-full p-2  bg-gray-200' />
+                        {
+                            password.length !== 0
+                            && (!showPassword
+                                ? (<IoMdEye size={25} className=' cursor-pointer' onClick={() => { setShowPassword(!showPassword) }} />)
+                                : (<IoMdEyeOff size={25} className=' cursor-pointer' onClick={() => { setShowPassword(!showPassword) }} />))
+                        }
                     </div>
                     {!activeBtn &&
                         (<div className="para font-bold">Lost password?
@@ -100,16 +108,15 @@ const Fields = ({ activeBtn, heading }) => {
                         </div>
                     )}
                 </div>
-                {/* <Btns btnActive={activeBtn} /> */}
                 <div className="btns flex justify-around w-full">
                     {activeBtn ? (
-                        <button onClick={notify} className={`${!activeBtn ? 'bg-gray-200' : 'bg-purple-800'} rounded-full p-2 font-bold`}>SignUp </button>
+                        <button onClick={notify} className={`${!activeBtn ? 'bg-gray-200' : 'bg-purple-800 text-white'} rounded-full p-2 font-bold`}>SignUp </button>
                     ) : <Link to={'/signup'}>
-                        <button className={`${!activeBtn ? 'bg-gray-200' : 'bg-purple-800'} rounded-full p-2 font-bold`}>Create account </button>
+                        <button className={`${!activeBtn ? 'bg-gray-200' : 'bg-purple-800 text-white'} rounded-full p-2 font-bold`}>Create account </button>
                     </Link>}
                     {!activeBtn ?
-                        (<button onClick={handleLogin} className={`${activeBtn ? 'bg-gray-200' : 'bg-purple-800'} rounded-full p-2 font-bold`}>Login </button>)
-                        : <Link to={'/login'}><button className={`${activeBtn ? 'bg-gray-200' : 'bg-purple-800'} rounded-full p-2 font-bold`}>Login </button></Link>}
+                        (<button onClick={handleLogin} className={`${activeBtn ? 'bg-gray-200' : 'bg-purple-800 text-white'} rounded-full p-2 font-bold`}>Login </button>)
+                        : <Link to={'/login'}><button className={`${activeBtn ? 'bg-gray-200' : 'bg-purple-800 text-white'} rounded-full p-2 font-bold`}>Login </button></Link>}
                 </div>
             </form>
         </>

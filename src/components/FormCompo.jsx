@@ -8,7 +8,7 @@ const FormCompo = () => {
     return (
         <>
             <div className="flex justify-center items-center h-screen">
-                <div className="container bg-white w-1/3 flex justify-center rounded-md min-h-28 p-9">
+                <div className="container bg-white lg:w-1/3 md:w-1/2 sm:w-full m-10 flex justify-center rounded-md min-h-28 p-9">
 
                     <div className=" fixed top-0 h-4">
                         <Toaster />
